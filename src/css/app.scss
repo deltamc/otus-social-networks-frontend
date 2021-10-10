@@ -1,0 +1,42 @@
+// app global css in SCSS form
+.menu-icon {
+  font-size: 22px;
+}
+.menu-links a {
+  text-decoration: none;
+  color: #b8b8b8;
+}
+.menu-links a:hover {
+  text-decoration: none;
+  color: white;
+}
+.menu-item-links a {
+  text-decoration: none;
+  color: #24292e;
+}
+.section-title {
+  font-size: 38px;
+  margin: 10px 0 10px 0;
+}
+.header-table tr:first-child th {
+  text-align: center;
+  font-weight: bold;
+}
+.header-table td {
+  text-align: center;
+}
+.header-sub-table tr:first-child th {
+  background-color: #FFFFFF!important;
+}
+.title {
+  font-size: 32px;
+  font-weight: bold;
+}
+.btn-small {
+  width: 30px;
+}
+
+.router-link-active {
+  text-decoration: none;
+  color: white!important;
+}

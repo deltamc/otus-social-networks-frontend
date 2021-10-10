@@ -1,0 +1,58 @@
+---
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+
+stages:
+  - deploy2stage
+  - deploy2prod
+
+postingcabinet-buildanddeploy2stage:
+  stage: deploy2stage
+  environment:
+    name: stage
+  tags: [docker]
+  services:
+    - docker:19.03.15-dind
+  image: reg.techhprof.ru/profitclicks/dockeransible:latest
+  when: manual
+  script:
+    - docker login -u $DOCKER_USER -p "$DOCKER_PASSWORD" $DOCKER_REGISTRY
+    - cp ${ENV} ./.env
+    - docker build -t ${DOCKER_REGISTRY}/vitrina/postingcabinet:${CI_ENVIRONMENT_SLUG} -f ./build/Dockerfile-build .
+    - docker push ${DOCKER_REGISTRY}/vitrina/postingcabinet:${CI_ENVIRONMENT_SLUG}
+    - chmod 600 ${SSH_DEPLOY_KEY}
+    - export ANSIBLE_HOST_KEY_CHECKING=False
+    - cp ${ANSIBLE_ENV} extra_vars.json
+    - >
+      ansible-playbook deploy/postingcabinet-deploy.yml
+      --diff
+      --private-key=${SSH_DEPLOY_KEY}
+      --inventory deploy/inventory/inventory.yml
+      --tags stage
+      --extra-vars "@extra_vars.json"
+
+postingcabinet-buildanddeploy2prod:
+  stage: deploy2prod
+  environment:
+    name: prod
+  tags: [docker]
+  services:
+    - docker:19.03.15-dind
+  image: reg.techhprof.ru/profitclicks/dockeransible:latest
+  when: manual
+  script:
+    - docker login -u $DOCKER_USER -p "$DOCKER_PASSWORD" $DOCKER_REGISTRY
+    - cp ${ENV} ./.env
+    - docker build -t ${DOCKER_REGISTRY}/vitrina/postingcabinet:${CI_ENVIRONMENT_SLUG} -f ./build/Dockerfile-build .
+    - docker push ${DOCKER_REGISTRY}/vitrina/postingcabinet:${CI_ENVIRONMENT_SLUG}
+    - chmod 600 ${SSH_DEPLOY_KEY}
+    - export ANSIBLE_HOST_KEY_CHECKING=False
+    - cp ${ANSIBLE_ENV} extra_vars.json
+    - >
+      ansible-playbook deploy/postingcabinet-deploy.yml
+      --diff
+      --private-key=${SSH_DEPLOY_KEY}
+      --inventory deploy/inventory/inventory.yml
+      --tags prod
+      --extra-vars "@extra_vars.json"
