@@ -38,7 +38,7 @@
 
                 <q-item clickable>
                   <q-item-section>
-                    <a @click="logout">Log out</a>
+                    <a @click.prevent="logout">Log out</a>
                   </q-item-section>
                 </q-item>
               </q-list>

@@ -37,7 +37,7 @@
                 <q-separator />
 
                 <q-item clickable>
-                  <a @click="logout">Log out</a>
+                  <a @click.prevent="logout">Log out</a>
                 </q-item>
               </q-list>
             </q-menu>

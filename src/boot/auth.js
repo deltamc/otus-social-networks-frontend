@@ -25,7 +25,7 @@ export default ({ Vue, router }) => {
     tokenStore: ['localStorage'],
     registerData: {
       url: `${baseUrl}/register`,
-      redirect: '/home',
+      redirect: '/people',
       autoLogin: true
     },
     loginData: {

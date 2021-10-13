@@ -3,7 +3,7 @@
     <v-loading :isLoading="isLoading" />
 
     <div class="row q-gutter-md" style="max-width: 800px;margin-top:50px" >
-      <div class="col-5 " v-for="item in people"><Card :user="item" :can-make-friends="true"></Card></div>
+      <div class="col-12 " v-for="item in people"><Card :user="item" :can-make-friends="true"></Card></div>
     </div>
 
   </q-page>
