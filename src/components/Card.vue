@@ -51,6 +51,8 @@
                 }).finally(() => {
                     this.isLoading = false;
                     this.$q.loading.hide()
+
+                }).catch(res =>{
                     Notify.create({
                         color: 'positive',
                         message: 'Saved',
