@@ -153,7 +153,7 @@ export default {
       authenticate() {
           this.$auth.login({ data: this.form }).then(({ data }) => {
               const { results } = data;
-              this.$router.push("/people");
+              this.$router.push({path: '/'});
           });
       },
   },

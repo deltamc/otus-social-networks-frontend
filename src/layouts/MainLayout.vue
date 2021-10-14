@@ -86,7 +86,7 @@ export default {
   methods:{
     logout() {
         localStorage.removeItem('auth_token_default')
-        this.$router.push('/login')
+        this.$router.push({path: '/'});
     }
   }
 }
