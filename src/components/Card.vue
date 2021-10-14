@@ -52,7 +52,7 @@
                     this.isLoading = false;
                     this.$q.loading.hide()
 
-                }).catch(res =>{
+                }).then(res =>{
                     Notify.create({
                         color: 'positive',
                         message: 'Saved',
