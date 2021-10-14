@@ -2,7 +2,7 @@
   <q-page class="flex flex-center" >
     <v-loading :isLoading="isLoading" />
 
-    <div class="row q-gutter-md" style="min-width: 800px; width:100%; margin-top:50px" >
+    <div class="row q-gutter-md" style="max-width: 800px; width:100%; margin-top:50px" >
       <div class="col-12 " v-for="item in people"><Card :user="item" :can-make-friends="true"></Card></div>
     </div>
 

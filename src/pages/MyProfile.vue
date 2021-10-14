@@ -2,25 +2,9 @@
   <q-page class="flex flex-center">
     <q-card>
       <q-card-section>
-        <div class="text-center q-mb-lg menu-icon">Sign up</div>
+        <div class="text-center q-mb-lg menu-icon">My profile</div>
         <div class="login-form">
           <q-form ref="regForm" @submit.prevent="onSubmit" class="q-gutter-md">
-            <q-input
-              filled
-              type="text"
-              v-model="form.login"
-              label="Login"
-              :rules="[rules.required]"
-            />
-
-            <q-input
-              filled
-              type="password"
-              v-model="form.password"
-              label="Password"
-
-              :rules="[rules.required, rules.minLen(6)]"
-            />
 
             <q-input
               filled
@@ -89,11 +73,13 @@
 </template>
 
 <script>
-    import httpClient from 'src/app/api/httpClient';
+import httpClient from 'src/app/api/httpClient';
 import VLoading from 'components/VLoading'
-const REGISTER_URL = 'sign-up';
+import { Notify } from 'quasar';
+
+const EDIT_PROFILE_URL = 'profile';
 export default {
-  name: 'Login',
+  name: 'Profit',
   components: {VLoading},
 
   data() {
@@ -104,7 +90,6 @@ export default {
           {id:2, name:'Female'},
       ],
       form: {
-        password: '',
           first_name: '',
           last_name: '',
           sex: null,
@@ -118,12 +103,23 @@ export default {
       },
     }
   },
-
+  mounted(){
+      let user = this.$auth.user();
+      this.form = {
+          first_name: user.first_name,
+          last_name: user.last_name,
+          sex: user.sex,
+          age: user.age,
+          city: user.city,
+          interests: user.interests,
+      };
+  },
   methods: {
 
 
 
     onSubmit() {
+
       this.$q.loading.show();
       const { regForm } = this.$refs;
         regForm
@@ -136,13 +132,17 @@ export default {
       submit() {
           httpClient({
               method: 'POST',
-              url: REGISTER_URL,
+              url: EDIT_PROFILE_URL,
               data: this.form,
-              // headers: {
-              //     'Content-Type': 'application/x-www-form-urlencoded',
-              // },
           }).then((res) => {
-              this.authenticate();
+              Notify.create({
+                  color: 'positive',
+                  message: 'Saved ',
+                  icon: 'report_problem',
+                  position: 'top',
+                  avatar: '',
+                  duration: 5000,
+              })
           }).finally(() => {
               this.isLoading = false;
               this.$q.loading.hide()

@@ -35,6 +35,7 @@
 <script>
     const API_PEOPLE = '/make_friend';
     import httpClient from 'src/app/api/httpClient';
+    import { Notify } from 'quasar';
     export default {
         name: "Card",
         props:["user","can-make-friends"],
@@ -50,6 +51,14 @@
                 }).finally(() => {
                     this.isLoading = false;
                     this.$q.loading.hide()
+                    Notify.create({
+                        color: 'positive',
+                        message: 'Saved',
+                        icon: 'report_problem',
+                        position: 'top',
+                        avatar: '',
+                        duration: 5000,
+                    })
                 });
             }
         }

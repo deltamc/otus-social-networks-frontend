@@ -49,6 +49,7 @@
     </q-header>
 
     <q-page-container>
+
       <router-view />
     </q-page-container>
   </q-layout>
@@ -76,6 +77,11 @@ export default {
           title: 'Friends',
           link: '/friends',
         },
+          {
+          id: 3,
+          title: 'My profile',
+          link: '/my-profile',
+        },
       ]
     }
   },
@@ -85,8 +91,7 @@ export default {
   },
   methods:{
     logout() {
-        localStorage.removeItem('auth_token_default')
-        this.$router.push({path: '/'});
+        this.$auth.logout();
     }
   }
 }
