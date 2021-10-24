@@ -47,7 +47,7 @@
         methods: {
             makeFriends(id) {
                 this.isLoading = true;
-                return httpClient.post(API_PEOPLE, {user_id:id}).then((res) => {
+                return httpClient.post(API_PEOPLE, {user_id:String(id)}).then((res) => {
                 }).finally(() => {
                     this.isLoading = false;
                     this.$q.loading.hide()
