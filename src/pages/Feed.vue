@@ -40,6 +40,7 @@ export default {
     methods:{
         getItems() {
             this.isLoading = true;
+            console.log("process.env.API_FEED_BASE_URL", process.env.API_FEED_BASE_URL);
             return httpClient.get(API_FEED, {baseURL: `${process.env.API_FEED_BASE_URL}/`}).then((res) => {
                 this.feed = res.data;
             }).finally(() => {
