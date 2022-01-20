@@ -44,6 +44,14 @@ const routes = [
     ]
   },
   {
+    path: '/feed',
+    meta: { auth: true },
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Feed.vue') }
+    ]
+  },
+  {
     path: '/my-profile',
     meta: { auth: true },
     component: () => import('layouts/MainLayout.vue'),

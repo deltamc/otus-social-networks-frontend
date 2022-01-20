@@ -78,6 +78,11 @@ export default {
           link: '/friends',
         },
           {
+              id: 2,
+              title: 'Feed',
+              link: '/feed',
+          },
+          {
           id: 3,
           title: 'My profile',
           link: '/my-profile',
