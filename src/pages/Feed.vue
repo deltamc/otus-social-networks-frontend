@@ -36,6 +36,21 @@ export default {
   },
     mounted() {
         this.getItems()
+        var	socket	=	new	WebSocket('ws://localhost:8084?token='+ this.$auth.user().id);
+        socket.onopen	=	function(event)	{
+            console.log('ws	opened');
+            var	data	=	JSON.stringify({	message:	"Hello	WebSocket"	});
+            socket.send(data);
+        };
+        socket.onmessage = (event) => {
+            var	resp	=	JSON.parse(event.data);
+            console.log('ws	message resp',	resp);
+
+            this.feed.unshift(resp)
+        };
+        socket.onclose	=	function(event)	{
+            console.log('ws	closed')
+        };
     },
     methods:{
         getItems() {
