@@ -36,7 +36,7 @@ export default {
   },
     mounted() {
         this.getItems()
-        var	socket	=	new	WebSocket('ws://localhost:8084?token='+ this.$auth.user().id);
+        var	socket	=	new	WebSocket(  process.env.API_FEED_WS_URL+ '?token='+ this.$auth.user().id);
         socket.onopen	=	function(event)	{
             console.log('ws	opened');
             var	data	=	JSON.stringify({	message:	"Hello	WebSocket"	});
